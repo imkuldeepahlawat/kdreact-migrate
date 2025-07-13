@@ -1,61 +1,44 @@
 name: Publish to NPM
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20.x'
         cache: 'npm'
         registry-url: 'https://registry.npmjs.org'
-        
     - name: Install dependencies
       run: npm ci
-      
     - name: Run linting
       run: npm run lint
-      
     - name: Run tests
       run: npm test
-      
     - name: Build project
       run: npm run build
-      
     - name: Format code with Prettier
       run: npm run format
-      
-    - name: Check if package.json has been modified
-      id: check-package
+    - name: Bump version and publish to NPM
       run: |
-        if git diff --name-only HEAD~1 | grep -q "package.json"; then
-          echo "package_modified=true" >> $GITHUB_OUTPUT
-        else
-          echo "package_modified=false" >> $GITHUB_OUTPUT
-        fi
-        
-    - name: Publish to NPM
-      if: steps.check-package.outputs.package_modified == 'true'
-      run: npm publish
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        npm version patch --no-git-tag-version
+        npm publish --access public --tag latest
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        
-    - name: Create GitHub Release
-      if: steps.check-package.outputs.package_modified == 'true'
-      uses: actions/create-release@v1
+    - name: Push version bump to repo
+      run: |
+        git add package.json package-lock.json
+        git commit -m "chore: bump version [skip ci]" || echo "No changes to commit"
+        git push
       env:
-        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref_name }}
-        draft: false
-        prerelease: false 
+        REPO_TOKEN: ${{ secrets.REPO_TOKEN }} 
