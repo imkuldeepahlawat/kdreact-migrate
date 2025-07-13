@@ -394,6 +394,16 @@ Documentation is automatically deployed to GitHub Pages on every push to main.
 
 ## 🤝 **Contributing**
 
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for detailed information on:
+
+- Development setup and workflow
+- Coding standards and guidelines
+- Testing requirements
+- Pull request process
+- Bug reporting and feature requests
+
+### Quick Start for Contributors
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -405,6 +415,15 @@ Documentation is automatically deployed to GitHub Pages on every push to main.
 ```bash
 # Run all quality checks
 npm test && npm run lint && npm run type-check && npm run format:check && npm run build
+```
+
+### Environment Configuration
+
+Copy `.env.example` to `.env` and configure the environment variables for your development setup:
+
+```bash
+cp .env.example .env
+# Edit .env with your preferred settings
 ```
 
 ## 📄 **License**
