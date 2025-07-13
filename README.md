@@ -193,31 +193,35 @@ react-migrate validate
 ### Migration Workflow
 
 1. **Pre-Migration Analysis**
+
    ```bash
    # Run compatibility check
    react-migrate check 18
-   
+
    # Generate detailed report
    react-migrate report 18
    ```
 
 2. **Dry Run (Recommended)**
+
    ```bash
    # Preview changes without applying
    react-migrate 18 --dry-run
    ```
 
 3. **Full Migration**
+
    ```bash
    # Run actual migration
    react-migrate 18
    ```
 
 4. **Post-Migration Verification**
+
    ```bash
    # Validate migration results
    react-migrate validate
-   
+
    # Run tests to ensure functionality
    npm test
    ```
@@ -226,7 +230,7 @@ react-migrate validate
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Docker (for local workflow testing)
 
@@ -454,4 +458,4 @@ Based on testing with various React applications:
 - **Configuration Updates**: 90% automated success rate
 - **Manual Review Required**: 15-20% of changes typically need manual verification
 
-*Note: Success rates may vary based on project complexity and custom implementations.*
+_Note: Success rates may vary based on project complexity and custom implementations._

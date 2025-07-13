@@ -6,7 +6,7 @@ Thank you for your interest in contributing to the React Migration CLI! This doc
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Git
 - Docker (for local workflow testing)
@@ -14,6 +14,7 @@ Thank you for your interest in contributing to the React Migration CLI! This doc
 ### Development Setup
 
 1. **Fork and Clone**
+
    ```bash
    # Fork the repository on GitHub
    # Then clone your fork
@@ -22,16 +23,19 @@ Thank you for your interest in contributing to the React Migration CLI! This doc
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Build the Project**
+
    ```bash
    npm run build
    ```
 
 4. **Run Tests**
+
    ```bash
    npm test
    ```
@@ -172,10 +176,10 @@ describe('ReactMigrationTool', () => {
       // Arrange
       const tool = new ReactMigrationTool();
       const projectPath = '/path/to/project';
-      
+
       // Act
       const result = await tool.migrate(projectPath, '18');
-      
+
       // Assert
       expect(result.success).toBe(true);
       expect(result.changes).toHaveLength(5);
@@ -185,10 +189,11 @@ describe('ReactMigrationTool', () => {
       // Arrange
       const tool = new ReactMigrationTool();
       const invalidPath = '/invalid/path';
-      
+
       // Act & Assert
-      await expect(tool.migrate(invalidPath, '18'))
-        .rejects.toThrow('Project path does not exist');
+      await expect(tool.migrate(invalidPath, '18')).rejects.toThrow(
+        'Project path does not exist'
+      );
     });
   });
 });
@@ -260,7 +265,7 @@ npm unlink
 - Provide usage examples
 - Document return values and exceptions
 
-```typescript
+````typescript
 /**
  * Migrates a React project to the specified version
  * @param projectPath - Path to the React project directory
@@ -276,7 +281,7 @@ npm unlink
  * ```
  */
 async migrate(projectPath: string, targetVersion: string, options?: MigrationOptions): Promise<MigrationResult>
-```
+````
 
 ### README Updates
 
@@ -290,6 +295,7 @@ async migrate(projectPath: string, targetVersion: string, options?: MigrationOpt
 ### Before Submitting
 
 1. **Ensure Quality**
+
    ```bash
    # Run all quality checks
    npm run quality-check
@@ -309,21 +315,25 @@ async migrate(projectPath: string, targetVersion: string, options?: MigrationOpt
 
 ```markdown
 ## Description
+
 Brief description of the changes
 
 ## Type of Change
+
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Documentation update
 
 ## Testing
+
 - [ ] Unit tests pass
 - [ ] Integration tests pass
 - [ ] Manual testing completed
 - [ ] Code coverage maintained or improved
 
 ## Checklist
+
 - [ ] Code follows the style guidelines
 - [ ] Self-review completed
 - [ ] Documentation updated
@@ -331,9 +341,11 @@ Brief description of the changes
 - [ ] No console errors or warnings
 
 ## Screenshots (if applicable)
+
 Add screenshots for UI changes
 
 ## Additional Notes
+
 Any additional information or context
 ```
 
@@ -350,27 +362,33 @@ Any additional information or context
 
 ```markdown
 ## Bug Description
+
 Clear and concise description of the bug
 
 ## Steps to Reproduce
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
 ## Expected Behavior
+
 What you expected to happen
 
 ## Actual Behavior
+
 What actually happened
 
 ## Environment
+
 - OS: [e.g. macOS, Windows, Linux]
 - Node.js version: [e.g. 18.0.0]
 - React Migration CLI version: [e.g. 1.0.0]
 - React project version: [e.g. 16.14.0]
 
 ## Additional Context
+
 Any other context about the problem
 ```
 
@@ -386,18 +404,23 @@ Any other context about the problem
 
 ```markdown
 ## Feature Description
+
 Clear and concise description of the feature
 
 ## Problem Statement
+
 What problem does this feature solve?
 
 ## Proposed Solution
+
 How would you like to see this implemented?
 
 ## Alternatives Considered
+
 Any alternative solutions you've considered
 
 ## Additional Context
+
 Any other context or screenshots
 ```
 
@@ -428,9 +451,10 @@ Any other context or screenshots
 ## 🎉 **Recognition**
 
 Contributors will be recognized in:
+
 - README.md contributors section
 - GitHub repository contributors
 - Release notes
 - Project documentation
 
-Thank you for contributing to React Migration CLI! 🚀 
+Thank you for contributing to React Migration CLI! 🚀
