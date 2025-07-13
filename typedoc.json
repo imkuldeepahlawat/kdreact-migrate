@@ -1,0 +1,29 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "test/**/*"],
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "includeVersion": true,
+  "theme": "default",
+  "name": "React Migration CLI",
+  "readme": "README.md",
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Migration",
+    "Dependencies",
+    "Code Transformation",
+    "Configuration",
+    "Utilities",
+    "*"
+  ],
+  "defaultCategory": "Other",
+  "hideGenerator": true,
+  "sort": ["source-order"],
+  "searchInComments": true,
+  "validation": {
+    "invalidLink": true,
+    "notExported": true
+  }
+}
