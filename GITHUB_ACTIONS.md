@@ -36,9 +36,15 @@ act push -W .github/workflows/ci.yml --container-architecture linux/amd64
 **Features:**
 
 - **TypeDoc Generation**: Creates comprehensive API documentation
-- **GitHub Pages**: Deploys to `https://username.github.io/repo-name/`
-- **PR Comments**: Automatically comments on PRs with docs URL
+- **GitHub Pages**: Deploys to `https://username.github.io/repo-name/` (if enabled)
+- **Graceful Handling**: Works even if GitHub Pages is not enabled
+- **PR Comments**: Automatically comments on PRs with docs URL or setup instructions
 - **Manual Trigger**: Can be run manually via GitHub UI
+
+**Setup Required:**
+
+- GitHub Pages must be enabled in repository settings (Settings > Pages > Source: GitHub Actions)
+- If not enabled, documentation will still be generated but not deployed
 
 **Local Testing:**
 
