@@ -1,6 +1,6 @@
 {
   "name": "kdreact-migrate",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "CLI tool to migrate React applications from version 16 to newer versions (17, 18, 19)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
