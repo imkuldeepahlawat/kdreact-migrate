@@ -2,7 +2,7 @@
 
 A comprehensive CLI tool to migrate React applications from version 16 to newer versions (17, 18, 19) with full TypeScript support and automated code transformations.
 
-## 🚀 **Features**
+## Features
 
 - **Complete React Migration**: Migrate from React 16 to 17, 18, or 19
 - **Dependency Updates**: 40+ React-related packages with version mappings
@@ -11,13 +11,13 @@ A comprehensive CLI tool to migrate React applications from version 16 to newer 
 - **Comprehensive Reporting**: Detailed migration reports with fixes and manual review items
 - **TypeScript Support**: Full TypeScript implementation with proper types and documentation
 
-## 📋 **Comprehensive Guide**
+## Comprehensive Guide
 
 ### What This Tool Does
 
 The React Migration CLI is designed to automate the complex process of upgrading React applications from version 16 to newer versions. Here's what it handles:
 
-#### 🔄 **Automated Code Transformations**
+#### Automated Code Transformations
 
 1. **ReactDOM.render → createRoot Migration**
    - Converts `ReactDOM.render()` to `ReactDOM.createRoot().render()`
@@ -40,7 +40,7 @@ The React Migration CLI is designed to automate the complex process of upgrading
    - Transforms state management to `useState` and `useEffect`
    - Updates context usage to modern patterns
 
-#### 📦 **Dependency Management**
+#### Dependency Management
 
 1. **Package Version Updates**
    - Updates 40+ React-related packages to compatible versions
@@ -53,7 +53,7 @@ The React Migration CLI is designed to automate the complex process of upgrading
    - Updates ESLint rules for modern React practices
    - Adjusts Babel and Webpack configurations
 
-#### 🔍 **Comprehensive Analysis & Reporting**
+#### Comprehensive Analysis & Reporting
 
 1. **Migration Analysis**
    - Scans your codebase for migration opportunities
@@ -66,7 +66,7 @@ The React Migration CLI is designed to automate the complex process of upgrading
    - Highlights items requiring manual review
    - Provides step-by-step guidance for manual fixes
 
-#### 🛡️ **Safety Features**
+#### Safety Features
 
 1. **Dry Run Mode**
    - Preview changes without applying them
@@ -82,7 +82,7 @@ The React Migration CLI is designed to automate the complex process of upgrading
 
 ### What This Tool Does NOT Do
 
-#### ❌ **Limitations & Manual Tasks**
+#### Limitations & Manual Tasks
 
 1. **Custom Logic Migration**
    - Does not automatically migrate custom business logic
@@ -114,7 +114,7 @@ The React Migration CLI is designed to automate the complex process of upgrading
    - Memoization and optimization patterns need manual implementation
    - Bundle size optimizations require manual review
 
-#### 🔧 **Manual Review Required**
+#### Manual Review Required
 
 1. **Breaking Changes**
    - Some React 18+ features require manual implementation
@@ -131,7 +131,7 @@ The React Migration CLI is designed to automate the complex process of upgrading
    - Redux, MobX, or custom state solutions require verification
    - Context usage patterns may need updates
 
-## 📦 **Installation**
+## Installation
 
 ```bash
 # Install globally
@@ -141,7 +141,7 @@ npm install -g kdreact-migrate
 npx kdreact-migrate [version] [path]
 ```
 
-## 🛠️ **Usage**
+## Usage
 
 ### Basic Migration
 
@@ -226,7 +226,7 @@ react-migrate validate
    npm test
    ```
 
-## 🏗️ **Development**
+## Development
 
 ### Prerequisites
 
@@ -273,7 +273,7 @@ npm run docs         # Generate TypeDoc
 npm run docs:serve   # Serve documentation
 ```
 
-## 🧪 **Testing**
+## Testing
 
 ### Local Testing
 
@@ -302,7 +302,7 @@ act workflow_dispatch -W .github/workflows/test-local.yml --container-architectu
 
 See [GITHUB_ACTIONS.md](./GITHUB_ACTIONS.md) for detailed workflow documentation.
 
-## 📋 **GitHub Actions**
+## GitHub Actions
 
 This project includes comprehensive CI/CD workflows:
 
@@ -314,13 +314,13 @@ This project includes comprehensive CI/CD workflows:
 
 All workflows are tested locally and ready for production use.
 
-## 📚 **Documentation**
+## Documentation
 
 - [Migration Summary](./MIGRATION_SUMMARY.md) - Complete migration details
 - [GitHub Actions](./GITHUB_ACTIONS.md) - Workflow documentation
 - [API Documentation](./docs/) - Generated TypeDoc documentation
 
-## 🎯 **Supported Packages**
+## Supported Packages
 
 The tool supports migration of 40+ React-related packages including:
 
@@ -332,7 +332,7 @@ The tool supports migration of 40+ React-related packages including:
 - **Testing**: React Testing Library
 - **And many more...**
 
-## ⚠️ **Important Notes**
+## Important Notes
 
 ### Before Migration
 
@@ -365,7 +365,7 @@ The tool supports migration of 40+ React-related packages including:
    - Monitor for issues
    - Roll out gradually to production
 
-## 🔧 **Configuration**
+## Configuration
 
 ### TypeScript Configuration
 
@@ -379,7 +379,7 @@ ESLint is configured with TypeScript support and recommended rules.
 
 Prettier ensures consistent code formatting across the project.
 
-## 🚀 **Deployment**
+## Deployment
 
 ### NPM Publishing
 
@@ -396,7 +396,7 @@ Prettier ensures consistent code formatting across the project.
 
 Documentation is automatically deployed to GitHub Pages on every push to main.
 
-## 🤝 **Contributing**
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for detailed information on:
 
@@ -430,26 +430,26 @@ cp .env.example .env
 # Edit .env with your preferred settings
 ```
 
-## 📄 **License**
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🆘 **Support**
+## Support
 
 - **Issues**: [GitHub Issues](https://github.com/imkuldeepahlawat/kdreact-migrate/issues)
 - **Documentation**: [API Docs](./docs/)
 - **Migration Guide**: [Migration Summary](./MIGRATION_SUMMARY.md)
 
-## 🎉 **Status**
+## Status
 
-✅ **Complete TypeScript Migration** - All original JavaScript functionality restored  
-✅ **Comprehensive Testing** - 40 tests with 100% coverage  
-✅ **GitHub Actions** - Full CI/CD pipeline with local testing  
-✅ **Documentation** - Complete API documentation with TypeDoc  
-✅ **Code Quality** - ESLint, Prettier, TypeScript strict mode  
-✅ **Production Ready** - Ready for NPM publishing and deployment
+**Complete TypeScript Migration** - All original JavaScript functionality restored  
+**Comprehensive Testing** - 40 tests with 100% coverage  
+**GitHub Actions** - Full CI/CD pipeline with local testing  
+**Documentation** - Complete API documentation with TypeDoc  
+**Code Quality** - ESLint, Prettier, TypeScript strict mode  
+**Production Ready** - Ready for NPM publishing and deployment
 
-## 📊 **Migration Success Rate**
+## Migration Success Rate
 
 Based on testing with various React applications:
 

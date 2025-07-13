@@ -2,9 +2,9 @@
 
 This project includes comprehensive GitHub Actions workflows for CI/CD, documentation deployment, and package publishing.
 
-## 📋 **Available Workflows**
+## Available Workflows
 
-### 1. **CI Workflow** (`.github/workflows/ci.yml`)
+### 1. CI Workflow (`.github/workflows/ci.yml`)
 
 **Triggers:** Push to `main`/`develop`, Pull Requests to `main`/`develop`
 
@@ -12,13 +12,13 @@ This project includes comprehensive GitHub Actions workflows for CI/CD, document
 
 **Features:**
 
-- ✅ **Multi-Node Testing**: Tests on Node.js 18.x and 20.x
-- ✅ **Dependency Installation**: Uses npm cache for faster builds
-- ✅ **Code Quality Checks**: Linting, type checking, formatting
-- ✅ **Test Execution**: Full test suite with coverage
-- ✅ **Build Verification**: Ensures TypeScript compilation works
-- ✅ **CLI Testing**: Verifies CLI commands work correctly
-- ✅ **Coverage Reports**: Uploads to Codecov
+- **Multi-Node Testing**: Tests on Node.js 18.x and 20.x
+- **Dependency Installation**: Uses npm cache for faster builds
+- **Code Quality Checks**: Linting, type checking, formatting
+- **Test Execution**: Full test suite with coverage
+- **Build Verification**: Ensures TypeScript compilation works
+- **CLI Testing**: Verifies CLI commands work correctly
+- **Coverage Reports**: Uploads to Codecov
 
 **Local Testing:**
 
@@ -27,7 +27,7 @@ This project includes comprehensive GitHub Actions workflows for CI/CD, document
 act push -W .github/workflows/ci.yml --container-architecture linux/amd64
 ```
 
-### 2. **Documentation Deployment** (`.github/workflows/docs.yml`)
+### 2. Documentation Deployment (`.github/workflows/docs.yml`)
 
 **Triggers:** Push to `main`, Manual dispatch
 
@@ -35,10 +35,10 @@ act push -W .github/workflows/ci.yml --container-architecture linux/amd64
 
 **Features:**
 
-- ✅ **TypeDoc Generation**: Creates comprehensive API documentation
-- ✅ **GitHub Pages**: Deploys to `https://username.github.io/repo-name/`
-- ✅ **PR Comments**: Automatically comments on PRs with docs URL
-- ✅ **Manual Trigger**: Can be run manually via GitHub UI
+- **TypeDoc Generation**: Creates comprehensive API documentation
+- **GitHub Pages**: Deploys to `https://username.github.io/repo-name/`
+- **PR Comments**: Automatically comments on PRs with docs URL
+- **Manual Trigger**: Can be run manually via GitHub UI
 
 **Local Testing:**
 
@@ -47,7 +47,7 @@ act push -W .github/workflows/ci.yml --container-architecture linux/amd64
 npm run docs
 ```
 
-### 3. **Package Publishing** (`.github/workflows/publish.yml`)
+### 3. Package Publishing (`.github/workflows/publish.yml`)
 
 **Triggers:** Release published
 
@@ -55,18 +55,18 @@ npm run docs
 
 **Features:**
 
-- ✅ **Quality Gates**: Runs tests and linting before publish
-- ✅ **Prettier Formatting**: Ensures code is properly formatted
-- ✅ **Smart Publishing**: Only publishes if package.json changed
-- ✅ **GitHub Releases**: Creates GitHub release automatically
-- ✅ **NPM Publishing**: Publishes to NPM registry
+- **Quality Gates**: Runs tests and linting before publish
+- **Prettier Formatting**: Ensures code is properly formatted
+- **Smart Publishing**: Only publishes if package.json changed
+- **GitHub Releases**: Creates GitHub release automatically
+- **NPM Publishing**: Publishes to NPM registry
 
 **Setup Required:**
 
 - `NPM_TOKEN` secret in repository settings
 - Release must be created manually on GitHub
 
-### 4. **Code Formatting** (`.github/workflows/format.yml`)
+### 4. Code Formatting (`.github/workflows/format.yml`)
 
 **Triggers:** Push to `main`/`develop`, Pull Requests to `main`/`develop`, Manual dispatch
 
@@ -74,10 +74,10 @@ npm run docs
 
 **Features:**
 
-- ✅ **Prettier Formatting**: Automatically formats code
-- ✅ **Format Checking**: Verifies code is properly formatted
-- ✅ **Auto-Commit**: Commits formatting changes on push
-- ✅ **PR Integration**: Works with pull requests
+- **Prettier Formatting**: Automatically formats code
+- **Format Checking**: Verifies code is properly formatted
+- **Auto-Commit**: Commits formatting changes on push
+- **PR Integration**: Works with pull requests
 
 **Local Testing:**
 
@@ -89,7 +89,7 @@ npm run format:check
 npm run format
 ```
 
-### 5. **Local Testing** (`.github/workflows/test-local.yml`)
+### 5. Local Testing (`.github/workflows/test-local.yml`)
 
 **Triggers:** Manual dispatch only
 
@@ -97,9 +97,9 @@ npm run format
 
 **Features:**
 
-- ✅ **Full Pipeline**: Tests entire CI pipeline locally
-- ✅ **No External Dependencies**: Doesn't require external services
-- ✅ **Debugging**: Useful for debugging workflow issues
+- **Full Pipeline**: Tests entire CI pipeline locally
+- **No External Dependencies**: Doesn't require external services
+- **Debugging**: Useful for debugging workflow issues
 
 **Local Testing:**
 
@@ -108,7 +108,7 @@ npm run format
 act workflow_dispatch -W .github/workflows/test-local.yml --container-architecture linux/amd64
 ```
 
-## 🚀 **Local Development with Act**
+## Local Development with Act
 
 ### Installation
 
@@ -141,7 +141,7 @@ act push --secret-file .secrets
 - For M-series Macs, use `--container-architecture linux/amd64`
 - Ensure sufficient disk space for Docker images
 
-## 🔧 **Required Secrets**
+## Required Secrets
 
 ### For NPM Publishing
 
@@ -149,13 +149,13 @@ act push --secret-file .secrets
 
 ### For GitHub Pages
 
-- No additional secrets required (uses `GITHUB_TOKEN`)
+- No additional secrets required (uses `REPO_TOKEN`)
 
 ### For Codecov
 
-- No additional secrets required (uses `GITHUB_TOKEN`)
+- No additional secrets required (uses `REPO_TOKEN`)
 
-## 📦 **NPM Scripts**
+## NPM Scripts
 
 The following npm scripts are used by the workflows:
 
@@ -175,17 +175,17 @@ The following npm scripts are used by the workflows:
 }
 ```
 
-## 🎯 **Workflow Matrix**
+## Workflow Matrix
 
 | Workflow   | Trigger        | Purpose         | Local Testable |
 | ---------- | -------------- | --------------- | -------------- |
-| CI         | Push/PR        | Quality checks  | ✅             |
-| Docs       | Push/Manual    | Documentation   | ✅             |
-| Publish    | Release        | NPM publishing  | ❌             |
-| Format     | Push/PR/Manual | Code formatting | ✅             |
-| Test Local | Manual         | Local testing   | ✅             |
+| CI         | Push/PR        | Quality checks  | Yes            |
+| Docs       | Push/Manual    | Documentation   | Yes            |
+| Publish    | Release        | NPM publishing  | No             |
+| Format     | Push/PR/Manual | Code formatting | Yes            |
+| Test Local | Manual         | Local testing   | Yes            |
 
-## 🔍 **Troubleshooting**
+## Troubleshooting
 
 ### Common Issues
 
@@ -224,14 +224,14 @@ act -n
 act --container-image node:20-buster-slim
 ```
 
-## 📈 **Performance**
+## Performance
 
 - **CI Workflow**: ~30 seconds
 - **Docs Workflow**: ~20 seconds
 - **Format Workflow**: ~15 seconds
 - **Local Testing**: ~35 seconds
 
-## 🔄 **Workflow Dependencies**
+## Workflow Dependencies
 
 ```
 Push/PR → CI Workflow
@@ -241,7 +241,7 @@ Push to main → Docs Workflow
 Release → Publish Workflow
 ```
 
-## 📝 **Best Practices**
+## Best Practices
 
 1. **Always test locally** before pushing
 2. **Use act for debugging** workflow issues
@@ -250,13 +250,13 @@ Release → Publish Workflow
 5. **Use caching** for faster builds
 6. **Test on multiple Node versions** for compatibility
 
-## 🎉 **Success Criteria**
+## Success Criteria
 
 A successful workflow run should show:
 
-- ✅ All tests passing (40/40)
-- ✅ No linting errors
-- ✅ TypeScript compilation successful
-- ✅ CLI commands working
-- ✅ Documentation generated
-- ✅ Code properly formatted
+- All tests passing (40/40)
+- No linting errors
+- TypeScript compilation successful
+- CLI commands working
+- Documentation generated
+- Code properly formatted
