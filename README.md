@@ -1,5 +1,7 @@
 # React Migration CLI
 
+> ⚠️ **This tool is under active development. Some advanced features described below are in progress and not yet fully implemented. See the feature list for details.**
+
 A comprehensive CLI tool to migrate React applications from version 16 to newer versions (17, 18, 19) with full TypeScript support and automated code transformations.
 
 ## Features
@@ -10,6 +12,37 @@ A comprehensive CLI tool to migrate React applications from version 16 to newer 
 - **Configuration Updates**: TypeScript, Jest, ESLint, Babel, Webpack configs
 - **Comprehensive Reporting**: Detailed migration reports with fixes and manual review items
 - **TypeScript Support**: Full TypeScript implementation with proper types and documentation
+
+---
+
+## ✅ What This Tool CAN Do
+
+- [x] Migrate React 16 projects to React 17, 18, or 19
+- [x] Update 40+ React-related dependencies to compatible versions
+- [x] Detect and report peer dependency conflicts
+- [x] Transform `ReactDOM.render` to `createRoot` (React 18+)
+- [x] Update deprecated lifecycle methods to modern alternatives
+- [x] Convert `React.PropTypes` to `prop-types` package
+- [x] Convert simple class components to functional components with `useState` (basic cases)
+- [x] Update TypeScript, Jest, and ESLint configuration files for new React versions
+- [x] Provide detailed migration and compatibility reports
+- [x] Optionally create a backup before migration (`--create-backup`)
+- [x] Allow manual rollback to a backup via CLI
+- [x] Allow migration of specific files or components via CLI options
+- [x] Dry run mode to preview changes
+
+## ❌ What This Tool CANNOT Do (and will not do automatically)
+
+- [ ] Automatically migrate complex class components to functional components with hooks (advanced patterns)
+- [ ] Automatically migrate custom business logic or advanced state management
+- [ ] Automatically migrate context usage to modern patterns
+- [ ] Automatically analyze or optimize bundle size
+- [ ] Automatically implement React performance optimizations
+- [ ] Guarantee deep compatibility with all third-party libraries
+- [ ] Perform incremental or step-by-step migration (beyond file/component selection)
+- [ ] Migrate CSS-in-JS, custom build scripts, or environment-specific configs
+
+---
 
 ## Comprehensive Guide
 
@@ -26,32 +59,29 @@ The React Migration CLI is designed to automate the complex process of upgrading
 
 2. **Lifecycle Method Updates**
    - Converts deprecated lifecycle methods to modern alternatives
-   - `componentWillMount` → `constructor` or `useEffect`
-   - `componentWillReceiveProps` → `getDerivedStateFromProps` or `useEffect`
-   - `componentWillUpdate` → `getSnapshotBeforeUpdate` or `useEffect`
+   - `componentWillMount` → `componentDidMount`
+   - `componentWillReceiveProps` → `componentDidUpdate`
+   - `componentWillUpdate` → `componentDidUpdate`
 
 3. **PropTypes Modernization**
-   - Converts `PropTypes` to TypeScript interfaces
-   - Generates proper type definitions
+   - Converts `React.PropTypes` to `prop-types` package
    - Maintains runtime validation where needed
 
-4. **Hooks Migration**
-   - Converts class components to functional components with hooks
-   - Transforms state management to `useState` and `useEffect`
-   - Updates context usage to modern patterns
+4. **Basic Class to Functional Component Conversion**
+   - Converts simple class components to functional components with `useState` (advanced patterns are not yet supported)
 
 #### Dependency Management
 
 1. **Package Version Updates**
    - Updates 40+ React-related packages to compatible versions
-   - Handles peer dependency conflicts
+   - Detects and reports peer dependency conflicts
    - Maintains package.json integrity
 
 2. **Configuration File Updates**
    - Updates TypeScript configuration for new React versions
    - Modifies Jest configuration for new testing patterns
    - Updates ESLint rules for modern React practices
-   - Adjusts Babel and Webpack configurations
+   - Adjusts Babel and Webpack configurations (guidance only)
 
 #### Comprehensive Analysis & Reporting
 
@@ -68,68 +98,25 @@ The React Migration CLI is designed to automate the complex process of upgrading
 
 #### Safety Features
 
-1. **Dry Run Mode**
-   - Preview changes without applying them
-   - Understand impact before migration
+1. **Backup Creation**
+   - Optionally creates a backup before making changes (`--create-backup`)
+   - Manual rollback supported via CLI
 
-2. **Backup Creation**
-   - Automatically creates backups before making changes
-   - Allows rollback if needed
+### What This Tool Does NOT Do (and will not do automatically)
 
-3. **Incremental Migration**
-   - Supports step-by-step migration
-   - Can migrate specific components or files
-
-### What This Tool Does NOT Do
-
-#### Limitations & Manual Tasks
-
-1. **Custom Logic Migration**
-   - Does not automatically migrate custom business logic
-   - Complex state management patterns require manual review
-   - Custom hooks and utilities need manual verification
-
-2. **Third-Party Library Compatibility**
-   - Cannot guarantee compatibility with all third-party libraries
-   - Some libraries may need manual updates or replacements
-   - Custom integrations require manual testing
-
-3. **Styling and CSS**
-   - Does not migrate CSS-in-JS patterns
-   - Styled-components or emotion configurations need manual review
-   - CSS modules and global styles are not affected
-
-4. **Build System Customizations**
-   - Complex webpack configurations may need manual updates
-   - Custom build scripts and optimizations require review
-   - Environment-specific configurations need manual verification
-
-5. **Testing Strategy Updates**
-   - Test files are updated but testing strategy may need review
-   - Custom test utilities and mocks require manual verification
-   - Integration test patterns may need updates
-
-6. **Performance Optimizations**
-   - Does not automatically implement new React performance features
-   - Memoization and optimization patterns need manual implementation
-   - Bundle size optimizations require manual review
+- **Automatic migration of complex class components to functional components with hooks**
+- **Automatic migration of custom business logic or advanced state management**
+- **Automatic migration of context usage to modern patterns**
+- **Automatic bundle size analysis or performance optimizations**
+- **Automatic deep compatibility with all third-party libraries**
+- **Incremental or step-by-step migration (beyond file/component selection)**
 
 #### Manual Review Required
 
-1. **Breaking Changes**
-   - Some React 18+ features require manual implementation
-   - Concurrent features need manual enabling
-   - Strict mode implications need manual review
-
-2. **Custom Components**
-   - Complex component logic may need manual refactoring
-   - Custom event handlers and side effects require review
-   - Performance-critical components need manual optimization
-
-3. **State Management**
-   - Complex state management patterns need manual review
-   - Redux, MobX, or custom state solutions require verification
-   - Context usage patterns may need updates
+- Some React 18+ features require manual implementation
+- Custom logic, advanced state management, and custom hooks/utilities need manual review
+- Third-party library compatibility must be verified manually
+- Performance optimizations and bundle size analysis are not automated
 
 ## Installation
 
