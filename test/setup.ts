@@ -13,7 +13,7 @@ global.console = {
 
 // Mock process.exit to prevent tests from actually exiting
 const originalExit = process.exit;
-process.exit = jest.fn() as (code?: number) => never;
+process.exit = jest.fn() as unknown as (code?: number) => never;
 
 // Restore process.exit after tests
 afterAll(() => {
