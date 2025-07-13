@@ -118,7 +118,7 @@ export class ReactMigrationTool {
         id: backupId,
         timestamp: new Date().toISOString(),
         path: backupPath,
-        description: `React ${this.targetVersion} migration backup`
+        description: `React ${this.targetVersion} migration backup`,
       };
 
       this.fixes.push(`Created backup: ${backupId}`);
@@ -128,7 +128,9 @@ export class ReactMigrationTool {
         'Failed to create backup: ' +
           (error instanceof Error ? error.message : String(error))
       );
-      console.log(chalk.yellow('⚠️ Backup creation failed, continuing without backup'));
+      console.log(
+        chalk.yellow('⚠️ Backup creation failed, continuing without backup')
+      );
     }
   }
 
@@ -166,15 +168,17 @@ export class ReactMigrationTool {
     console.log(chalk.yellow(`🔄 Rolling back to backup: ${backupId}...`));
 
     const backupPath = path.join(this.projectRoot, '..', backupId);
-    
+
     if (!fs.existsSync(backupPath)) {
       throw new Error(`Backup ${backupId} not found at ${backupPath}`);
     }
 
     try {
       // Remove current project files (except node_modules)
-      const entries = await fs.promises.readdir(this.projectRoot, { withFileTypes: true });
-      
+      const entries = await fs.promises.readdir(this.projectRoot, {
+        withFileTypes: true,
+      });
+
       for (const entry of entries) {
         if (entry.name !== 'node_modules') {
           const itemPath = path.join(this.projectRoot, entry.name);
@@ -189,10 +193,13 @@ export class ReactMigrationTool {
       // Restore from backup
       await this.copyDirectory(backupPath, this.projectRoot);
 
-      console.log(chalk.green(`✅ Successfully rolled back to backup: ${backupId}`));
+      console.log(
+        chalk.green(`✅ Successfully rolled back to backup: ${backupId}`)
+      );
     } catch (error) {
       throw new Error(
-        'Rollback failed: ' + (error instanceof Error ? error.message : String(error))
+        'Rollback failed: ' +
+          (error instanceof Error ? error.message : String(error))
       );
     }
   }
@@ -203,24 +210,27 @@ export class ReactMigrationTool {
   listBackups(): BackupInfo[] {
     const parentDir = path.dirname(this.projectRoot);
     const entries = fs.readdirSync(parentDir, { withFileTypes: true });
-    
+
     const backups: BackupInfo[] = [];
-    
+
     for (const entry of entries) {
       if (entry.isDirectory() && entry.name.startsWith('backup-')) {
         const backupPath = path.join(parentDir, entry.name);
         const stats = fs.statSync(backupPath);
-        
+
         backups.push({
           id: entry.name,
           timestamp: stats.mtime.toISOString(),
           path: backupPath,
-          description: `Backup created on ${stats.mtime.toLocaleDateString()}`
+          description: `Backup created on ${stats.mtime.toLocaleDateString()}`,
         });
       }
     }
-    
-    return backups.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+    return backups.sort(
+      (a, b) =>
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    );
   }
 
   /**
@@ -356,7 +366,7 @@ export class ReactMigrationTool {
   async analyzePeerDependencies(packageJson: any): Promise<void> {
     const allDeps = {
       ...packageJson.dependencies,
-      ...packageJson.devDependencies
+      ...packageJson.devDependencies,
     };
 
     const reactVersion = `^${this.targetVersion}`;
@@ -367,13 +377,20 @@ export class ReactMigrationTool {
       if (pkg.includes('react') && pkg !== 'react' && pkg !== 'react-dom') {
         // Check if package has peer dependency on React
         try {
-          const pkgPath = path.join(this.projectRoot, 'node_modules', pkg, 'package.json');
+          const pkgPath = path.join(
+            this.projectRoot,
+            'node_modules',
+            pkg,
+            'package.json'
+          );
           if (fs.existsSync(pkgPath)) {
             const pkgJson = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
             if (pkgJson.peerDependencies?.react) {
               const peerReactVersion = pkgJson.peerDependencies.react;
               if (!this.isVersionCompatible(reactVersion, peerReactVersion)) {
-                conflicts.push(`${pkg} requires React ${peerReactVersion} but we're upgrading to ${reactVersion}`);
+                conflicts.push(
+                  `${pkg} requires React ${peerReactVersion} but we're upgrading to ${reactVersion}`
+                );
               }
             }
           }
@@ -401,11 +418,11 @@ export class ReactMigrationTool {
     // Simple compatibility check - can be enhanced with semver library
     const v1 = version1.replace(/[\^~]/, '');
     const v2 = version2.replace(/[\^~]/, '');
-    
+
     // For React versions, major version should match
     const major1 = parseInt(v1.split('.')[0] || '0');
     const major2 = parseInt(v2.split('.')[0] || '0');
-    
+
     return major1 === major2;
   }
 
@@ -476,25 +493,36 @@ export class ReactMigrationTool {
       const targetFiles = this.options.files.split(',').map(f => f.trim());
       filesToTransform = this.reactFiles.filter(filePath => {
         const fileName = path.basename(filePath);
-        return targetFiles.some(target => 
-          fileName.includes(target) || filePath.includes(target)
+        return targetFiles.some(
+          target => fileName.includes(target) || filePath.includes(target)
         );
       });
-      console.log(chalk.blue(`📁 Transforming ${filesToTransform.length} specific files...`));
+      console.log(
+        chalk.blue(
+          `📁 Transforming ${filesToTransform.length} specific files...`
+        )
+      );
     }
 
     // Filter by specific components if provided
     if (this.options.components) {
-      const targetComponents = this.options.components.split(',').map(c => c.trim());
+      const targetComponents = this.options.components
+        .split(',')
+        .map(c => c.trim());
       filesToTransform = filesToTransform.filter(filePath => {
         const content = fs.readFileSync(filePath, 'utf8');
-        return targetComponents.some(component => 
-          content.includes(`class ${component}`) || 
-          content.includes(`function ${component}`) ||
-          content.includes(`const ${component}`)
+        return targetComponents.some(
+          component =>
+            content.includes(`class ${component}`) ||
+            content.includes(`function ${component}`) ||
+            content.includes(`const ${component}`)
         );
       });
-      console.log(chalk.blue(`🧩 Transforming ${filesToTransform.length} component files...`));
+      console.log(
+        chalk.blue(
+          `🧩 Transforming ${filesToTransform.length} component files...`
+        )
+      );
     }
 
     for (const filePath of filesToTransform) {
@@ -538,7 +566,10 @@ export class ReactMigrationTool {
     transformedContent = this.transformReactFC(transformedContent, fileName);
 
     // Transform class components to functional components
-    transformedContent = this.transformClassToFunctional(transformedContent, fileName);
+    transformedContent = this.transformClassToFunctional(
+      transformedContent,
+      fileName
+    );
 
     // Write transformed content if changed
     if (transformedContent !== content && !this.options.dryRun) {
@@ -719,7 +750,8 @@ export class ReactMigrationTool {
     let transformed = content;
 
     // Simple class component pattern matching
-    const classComponentRegex = /class\s+(\w+)\s+extends\s+React\.Component\s*{([\s\S]*?)}/g;
+    const classComponentRegex =
+      /class\s+(\w+)\s+extends\s+React\.Component\s*{([\s\S]*?)}/g;
     const stateRegex = /this\.state\s*=\s*({[^}]+})/g;
     const setStateRegex = /this\.setState\(/g;
     const propsRegex = /this\.props\./g;
@@ -728,33 +760,50 @@ export class ReactMigrationTool {
     if (classComponentRegex.test(transformed)) {
       // Reset regex
       classComponentRegex.lastIndex = 0;
-      
-      transformed = transformed.replace(classComponentRegex, (_match: string, className: string, classBody: string) => {
-        // Convert state to useState
-        let functionalBody = classBody.replace(stateRegex, (_stateMatch: string, stateObj: string) => {
-          return `const [state, setState] = useState(${stateObj});`;
-        });
 
-        // Convert setState calls
-        functionalBody = functionalBody.replace(setStateRegex, 'setState(');
+      transformed = transformed.replace(
+        classComponentRegex,
+        (_match: string, className: string, classBody: string) => {
+          // Convert state to useState
+          let functionalBody = classBody.replace(
+            stateRegex,
+            (_stateMatch: string, stateObj: string) => {
+              return `const [state, setState] = useState(${stateObj});`;
+            }
+          );
 
-        // Convert props references
-        functionalBody = functionalBody.replace(propsRegex, 'props.');
+          // Convert setState calls
+          functionalBody = functionalBody.replace(setStateRegex, 'setState(');
 
-        // Convert render method to return statement
-        const renderRegex = /render\s*\(\s*\)\s*{([\s\S]*?)return\s*([\s\S]*?);/g;
-        functionalBody = functionalBody.replace(renderRegex, (_renderMatch: string, beforeReturn: string, returnValue: string) => {
-          return `${beforeReturn}return ${returnValue};`;
-        });
+          // Convert props references
+          functionalBody = functionalBody.replace(propsRegex, 'props.');
 
-        // Create functional component
-        return `const ${className} = (props) => {
+          // Convert render method to return statement
+          const renderRegex =
+            /render\s*\(\s*\)\s*{([\s\S]*?)return\s*([\s\S]*?);/g;
+          functionalBody = functionalBody.replace(
+            renderRegex,
+            (
+              _renderMatch: string,
+              beforeReturn: string,
+              returnValue: string
+            ) => {
+              return `${beforeReturn}return ${returnValue};`;
+            }
+          );
+
+          // Create functional component
+          return `const ${className} = (props) => {
   ${functionalBody}
 };`;
-      });
+        }
+      );
 
       // Add useState import if needed
-      if (transformed.includes('useState') && !transformed.includes("import { useState }")) {
+      if (
+        transformed.includes('useState') &&
+        !transformed.includes('import { useState }')
+      ) {
         const importMatch = transformed.match(/import React[^;]+;/);
         if (importMatch) {
           transformed = transformed.replace(
@@ -764,7 +813,9 @@ export class ReactMigrationTool {
         }
       }
 
-      this.fixes.push(`${fileName}: Converted class component to functional component`);
+      this.fixes.push(
+        `${fileName}: Converted class component to functional component`
+      );
     }
 
     return transformed;
@@ -843,7 +894,9 @@ export class ReactMigrationTool {
         jestConfig = JSON.parse(jestConfigContent);
       } catch {
         // If JSON parsing fails, try to evaluate as CommonJS
-        jestConfig = eval(`(${jestConfigContent.replace('module.exports = ', '')})`);
+        jestConfig = eval(
+          `(${jestConfigContent.replace('module.exports = ', '')})`
+        );
       }
 
       let updated = false;
@@ -866,8 +919,8 @@ export class ReactMigrationTool {
         }
         jestConfig.globals['ts-jest'] = {
           tsconfig: {
-            jsx: 'react-jsx'
-          }
+            jsx: 'react-jsx',
+          },
         };
         updated = true;
       }
@@ -901,7 +954,9 @@ export class ReactMigrationTool {
         eslintConfig = JSON.parse(eslintContent);
       } catch {
         // If JSON parsing fails, try to evaluate as CommonJS
-        eslintConfig = eval(`(${eslintContent.replace('module.exports = ', '')})`);
+        eslintConfig = eval(
+          `(${eslintContent.replace('module.exports = ', '')})`
+        );
       }
 
       let updated = false;
@@ -928,7 +983,7 @@ export class ReactMigrationTool {
         if (!eslintConfig.rules) {
           eslintConfig.rules = {};
         }
-        
+
         // Disable rules that are no longer needed with new JSX transform
         eslintConfig.rules['react/jsx-uses-react'] = 'off';
         eslintConfig.rules['react/react-in-jsx-scope'] = 'off';
@@ -1445,7 +1500,10 @@ program
   .option('--deps-only', 'Only analyze and update dependencies')
   .option('--create-backup', 'Create a backup of the project before migration')
   .option('--files <files>', 'Specific files to migrate (comma-separated)')
-  .option('--components <components>', 'Specific components to migrate (comma-separated)')
+  .option(
+    '--components <components>',
+    'Specific components to migrate (comma-separated)'
+  )
   .action(
     async (
       targetVersion: string,
@@ -1537,12 +1595,12 @@ program
   .action(() => {
     const migrator = new ReactMigrationTool();
     const backups = migrator.listBackups();
-    
+
     if (backups.length === 0) {
       console.log(chalk.yellow('No backups found'));
       return;
     }
-    
+
     console.log(chalk.blue('📋 Available Backups:'));
     backups.forEach(backup => {
       console.log(chalk.green(`  ${backup.id}`));

@@ -18,7 +18,7 @@
     "lint:fix": "eslint . --ext .ts,.js --fix",
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md}\" --write",
     "prepare": "npm run build && chmod +x bin/react-migrate",
     "prepublishOnly": "npm test",
     "docs": "typedoc --out docs src/index.ts",
